@@ -6,9 +6,8 @@
     <title>Remy Appeiron - Galactic</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        /* CSS RESET & SMOOTH SCROLL */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; } /* Ini agar perpindahan halaman halus */
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: #020617;
@@ -17,7 +16,7 @@
             overflow-x: hidden;
         }
 
-        /* HALAMAN UTAMA (LANDING PAGE) */
+        /* LANDING PAGE */
         .hero-section {
             height: 100vh;
             display: flex;
@@ -25,106 +24,78 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
             position: relative;
-            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
         }
 
-        .hero-section h1 {
+        h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2rem, 10vw, 5rem);
+            font-size: clamp(2.5rem, 8vw, 5rem);
             color: #facc15;
-            text-shadow: 0 0 20px rgba(250, 204, 21, 0.7);
-            letter-spacing: 5px;
+            text-shadow: 0 0 20px rgba(250, 204, 21, 0.5);
             margin-bottom: 10px;
         }
 
-        .hero-section p {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            color: #cbd5e1;
-            letter-spacing: 3px;
-        }
-
-        /* TOMBOL NAVIGASI KE SLIDE */
-        .footer-nav {
-            position: absolute;
-            bottom: 40px;
-        }
-
+        .footer-nav { position: absolute; bottom: 40px; }
         .web-link {
             font-family: 'Orbitron', sans-serif;
             color: #facc15;
             text-decoration: none;
-            font-size: 0.9rem;
             border: 1px solid #facc15;
-            padding: 10px 25px;
+            padding: 12px 30px;
             border-radius: 30px;
             transition: 0.3s;
-            cursor: pointer;
-            background: transparent;
+            background: rgba(0,0,0,0.3);
         }
+        .web-link:hover { background: #facc15; color: #000; box-shadow: 0 0 20px #facc15; }
 
-        .web-link:hover {
-            background: #facc15;
-            color: #000;
-            box-shadow: 0 0 15px #facc15;
-        }
-
-        /* SECTION SLIDE PAGE */
+        /* SLIDE PAGE */
         .slide-page {
             min-height: 100vh;
-            padding: 80px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 60px 20px;
             background-color: #05070a;
-            border-top: 2px solid rgba(250, 204, 21, 0.3);
+            display: flex;
+            justify-content: center;
         }
 
-        .slide-content {
-            max-width: 900px;
-            width: 100%;
-        }
+        .slide-content { max-width: 1100px; width: 100%; }
 
         .slide-header {
             font-family: 'Orbitron', sans-serif;
             color: #facc15;
-            font-size: 2.5rem;
-            margin-bottom: 30px;
+            font-size: 2rem;
+            margin-bottom: 40px;
             border-left: 5px solid #facc15;
-            padding-left: 20px;
+            padding-left: 15px;
         }
 
+        /* GRID UNTUK GAMBAR & TEKS */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            gap: 25px;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: 0.3s;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: #facc15;
+        .card:hover { transform: translateY(-10px); border-color: #facc15; }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .card h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: #facc15;
-            margin-bottom: 15px;
-        }
-
-        .card p {
-            color: #94a3b8;
-            line-height: 1.6;
-        }
+        .card-body { padding: 20px; }
+        .card-body h3 { font-family: 'Orbitron', sans-serif; color: #facc15; margin-bottom: 10px; }
+        .card-body p { color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; }
 
     </style>
 </head>
@@ -132,37 +103,45 @@
 
     <section class="hero-section">
         <h1>REMY APPEIRON</h1>
-        <p>EXPLORING THE GALAXY</p>
-
+        <p style="letter-spacing: 5px; color: #94a3b8;">GALACTIC VOYAGE</p>
         <div class="footer-nav">
-            <a href="#slides" class="web-link">remy-appeiron.github.io</a>
+            <a href="#slides" class="web-link">PAGE GALAXY</a>
         </div>
     </section>
 
     <section id="slides" class="slide-page">
         <div class="slide-content">
-            <h2 class="slide-header">Galactic Information</h2>
+            <h2 class="slide-header">Discovery Gallery</h2>
             
             <div class="grid-container">
                 <div class="card">
-                    <h3>01. Star Systems</h3>
-                    <p>Mengeksplorasi ribuan bintang dalam sektor Appeiron menggunakan teknologi Warp Drive terbaru.</p>
+                    <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80" class="card-image" alt="Nebula">
+                    <div class="card-body">
+                        <h3>01. The Nebula</h3>
+                        <p>Awan gas kosmik tempat lahirnya bintang-bintang baru di pusat galaksi Appeiron.</p>
+                    </div>
                 </div>
 
                 <div class="card">
-                    <h3>02. Quantum Core</h3>
-                    <p>Pembangkit energi tanpa batas yang menenagai seluruh armada eksplorasi bintang kami.</p>
+                    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80" class="card-image" alt="Space Tech">
+                    <div class="card-body">
+                        <h3>02. Orbital Station</h3>
+                        <p>Pusat kendali satelit untuk memantau pergerakan asteroid dan jalur Warp Drive.</p>
+                    </div>
                 </div>
 
                 <div class="card">
-                    <h3>03. Neural Link</h3>
-                    <p>Integrasi AI tingkat lanjut untuk navigasi otonom di medan asteroid yang padat.</p>
+                    <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=800&q=80" class="card-image" alt="Black Hole">
+                    <div class="card-body">
+                        <h3>03. Singularity</h3>
+                        <p>Titik gravitasi terkuat yang menjadi jangkar bagi seluruh tata surya kita.</p>
+                    </div>
                 </div>
             </div>
 
-            <div style="margin-top: 100px; text-align: center; font-family: 'Orbitron'; color: #facc15; opacity: 0.7;">
-                <p>CONTACT: INFO@APPEIRON.COM</p>
-            </div>
+            <p style="text-align: center; margin-top: 50px; font-family: 'Orbitron'; color: #facc15; font-size: 0.8rem;">
+                © 2026 REMY APPEIRON COMMUNITY
+            </p>
         </div>
     </section>
 
