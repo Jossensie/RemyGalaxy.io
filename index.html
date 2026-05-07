@@ -10,7 +10,7 @@
         html { scroll-behavior: smooth; }
         body { background-color: #020617; color: #fff; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
 
-        /* --- BAGIAN 1: ANIMASI LATAR BELAKANG LUAR ANGKASA (HERO) --- */
+        /* --- BAGIAN 1: ANIMASI GALAXY (HERO) --- */
         .hero-section {
             height: 100vh;
             display: flex;
@@ -19,71 +19,75 @@
             align-items: center;
             text-align: center;
             position: relative;
-            overflow: hidden; /* Penting untuk video */
+            background: #000;
+            overflow: hidden;
+        }
+
+        /* Background Bintang Bergerak (Pure CSS Animation) */
+        .stars-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: move-stars linear infinite;
+        }
+
+        @keyframes move-stars {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100vh); }
+        }
+
+        /* Efek Glow Galaksi di Tengah */
+        .galaxy-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(250, 204, 21, 0.2) 0%, transparent 70%);
+            filter: blur(50px);
             z-index: 2;
+            animation: pulse 4s ease-in-out infinite;
         }
 
-        /* Video Galaksi Loop */
-        #galaxy-bg-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Video memenuhi layar tanpa distorsi */
-            z-index: -2;
-            opacity: 0.7; /* Sedikit redup agar teks terbaca */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.5); opacity: 0.6; }
         }
 
-        /* Overlay Gradien agar teks lebih kontras */
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(2, 6, 23, 0.5), rgba(2, 6, 23, 0.9));
-            z-index: -1;
-        }
-
-        /* Teks & Konten */
         .hero-content {
+            position: relative;
             z-index: 10;
-            max-width: 900px;
-            padding: 20px;
         }
 
         h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(3rem, 12vw, 6rem); /* Ukuran teks responsif */
+            font-size: clamp(2.5rem, 10vw, 5rem);
             color: #facc15;
-            text-shadow: 0 0 40px rgba(250, 204, 21, 0.6);
+            text-shadow: 0 0 30px rgba(250, 204, 21, 0.7);
             letter-spacing: 10px;
-            margin-bottom: 20px;
-        }
-
-        h1::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 4px;
-            background: #facc15;
-            margin: 15px auto;
-            border-radius: 2px;
+            margin-bottom: 10px;
         }
 
         .subtitle {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1rem, 4vw, 1.5rem);
+            font-size: 1.2rem;
             color: #cbd5e1;
             letter-spacing: 5px;
             text-transform: uppercase;
         }
 
-        /* Tombol 'HELO LIHAT INI' */
         .footer-nav {
             position: absolute;
-            bottom: 60px;
+            bottom: 50px;
             z-index: 10;
         }
 
@@ -91,141 +95,111 @@
             font-family: 'Orbitron', sans-serif; 
             color: #facc15; 
             text-decoration: none; 
-            border: 2px solid #facc15; 
-            padding: 15px 40px; 
-            border-radius: 40px; 
+            border: 1px solid #facc15; 
+            padding: 12px 35px; 
+            border-radius: 30px; 
             transition: 0.3s; 
-            background: rgba(0,0,0,0.4); 
+            background: rgba(0,0,0,0.5); 
             cursor: pointer;
-            display: inline-block;
-            font-size: 1rem;
             letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
         }
 
-        .web-link:hover {
-            background: #facc15;
-            color: #000;
-            box-shadow: 0 0 30px #facc15;
-            transform: scale(1.05);
-        }
+        .web-link:hover { background: #facc15; color: #000; box-shadow: 0 0 25px #facc15; }
 
         /* --- BAGIAN 2: SLIDE PAGE (GALERI) --- */
         #slides { 
-            display: none; /* Sembunyi awalnya */
-            opacity: 0;    /* Animasi muncul halus */
+            display: none; 
+            opacity: 0;
             min-height: 100vh; 
             padding: 80px 20px; 
             background-color: #05070a; 
-            transition: opacity 1.2s ease-in-out;
-            position: relative;
-            z-index: 1;
+            transition: opacity 1s ease;
         }
 
-        .slide-content { max-width: 1200px; width: 100%; margin: 0 auto; }
-        .slide-header { 
-            font-family: 'Orbitron', sans-serif; 
-            color: #facc15; 
-            font-size: clamp(1.8rem, 6vw, 2.5rem); 
-            margin-bottom: 50px; 
-            border-left: 6px solid #facc15; 
-            padding-left: 20px; 
-            text-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
-        }
+        .slide-content { max-width: 1100px; width: 100%; margin: 0 auto; }
+        .slide-header { font-family: 'Orbitron', sans-serif; color: #facc15; font-size: 2rem; margin-bottom: 40px; border-left: 5px solid #facc15; padding-left: 15px; }
 
-        /* KARTU */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
-        .card { background: rgba(255, 255, 255, 0.03); border-radius: 25px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08); transition: 0.3s; position: relative; }
-        .card:hover { transform: translateY(-15px); border-color: #facc15; box-shadow: 0 10px 30px rgba(250, 204, 21, 0.15); }
-        .card-image { width: 100%; height: 280px; object-fit: cover; display: block; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-        .card-body { padding: 25px; }
-        .card-body h3 { font-family: 'Orbitron', sans-serif; color: #facc15; margin-bottom: 15px; font-size: 1.3rem; }
-        .card-body p { color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; }
-
-        /* CONTACT INFO */
-        .final-info {
-            text-align: center; 
-            margin-top: 100px; 
-            font-family: 'Orbitron'; 
-            color: #facc15; 
-            font-size: 0.9rem; 
-            opacity: 0.8; 
-            letter-spacing: 3px;
-        }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: rgba(255, 255, 255, 0.03); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); border-color: #facc15; }
+        .card-image { width: 100%; height: 250px; object-fit: cover; }
+        .card-body { padding: 20px; }
+        .card-body h3 { font-family: 'Orbitron', sans-serif; color: #facc15; margin-bottom: 10px; }
+        .card-body p { color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; }
     </style>
 </head>
 <body>
 
     <section class="hero-section">
-        <video id="galaxy-bg-video" autoplay loop muted playsinline>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-spiral-galaxy-spinning-1100-large.mp4" type="video/mp4">
-            <img src="https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=1600" alt="Galaxy Fallback">
-        </video>
-        <div class="hero-overlay"></div>
+        <div class="stars-background" id="star-container"></div>
+        <div class="galaxy-glow"></div>
 
         <div class="hero-content">
             <h1>REMY APPEIRON</h1>
-            <p class="subtitle">GALACTIC APPEIRON COMMUNITY</p>
+            <p class="subtitle">GALACTIC APPEIRON</p>
         </div>
 
         <div class="footer-nav">
-            <a onclick="showGalacticGallery()" class="web-link">HELO LIHAT INI</a>
+            <a onclick="jalankanPage()" class="web-link">HELO LIHAT INI</a>
         </div>
     </section>
 
     <section id="slides">
         <div class="slide-content">
             <h2 class="slide-header">Discovery Gallery</h2>
-            
             <div class="grid-container">
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800" class="card-image" alt="Nebula">
                     <div class="card-body">
                         <h3>01. The Nebula</h3>
-                        <p>Awan antarbintang raksasa tempat bintang baru lahir, atau sisa-sisa ledakan supernova yang menakjubkan di pusat galaksi Remy Appeiron.</p>
+                        <p>Awan antarbintang raksasa yang terdiri dari debu dan gas. Sering dijuluki "tempat pembibitan bintang".</p>
                     </div>
                 </div>
-
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800" class="card-image" alt="Space Tech">
                     <div class="card-body">
                         <h3>02. Orbital Station</h3>
-                        <p>Pusat riset dan navigasi multinasional Appeiron yang mengorbit, memantau jalur eksplorasi Deep Space dengan teknologi Neural Link.</p>
+                        <p>International Space Station (ISS): Pusat riset yang mengorbit Bumi untuk memantau galaksi.</p>
                     </div>
                 </div>
-
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800" class="card-image" alt="Mars">
                     <div class="card-body">
-                        <h3>03. Mars: Planet Merah</h3>
-                        <p>Planet keempat dari Matahari, dikenal dengan permukaan besi oksida yang ikonik. Target kolonisasi utama komunitas Remy Appeiron.</p>
+                        <h3>03. Mars</h3>
+                        <p>Planet Keempat dari Matahari yang dikenal sebagai Planet Merah karena besi oksida di permukaannya.</p>
                     </div>
                 </div>
             </div>
-
-            <div class="final-info">
-                <p>jossensie.github.io/Remy &nbsp;|&nbsp; info@deepspace.com</p>
-                <p style="opacity: 0.5; margin-top: 10px;">© 2026 REMY APPEIRON COMMUNITY</p>
-            </div>
+            <p style="text-align: center; margin-top: 80px; font-family: 'Orbitron'; color: #facc15; font-size: 0.8rem; opacity: 0.6;">
+                © 2026 REMY APPEIRON COMMUNITY
+            </p>
         </div>
     </section>
 
     <script>
-        // Fungsi JavaScript untuk memunculkan galeri dengan animasi halus
-        function showGalacticGallery() {
-            var slideSection = document.getElementById("slides");
-            
-            // Tampilkan section galeri
-            slideSection.style.display = "flex";
-            
-            // Berikan sedikit delay agar animasi transisi opacity berjalan
+        // Membuat ribuan bintang secara otomatis
+        const container = document.getElementById('star-container');
+        for (let i = 0; i < 150; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDuration = (Math.random() * 5 + 3) + 's';
+            star.style.opacity = Math.random();
+            container.appendChild(star);
+        }
+
+        function jalankanPage() {
+            var target = document.getElementById("slides");
+            target.style.display = "block";
             setTimeout(function() {
-                slideSection.style.opacity = "1";
-                // Scroll otomatis dan halus ke bagian galeri
-                slideSection.scrollIntoView({ behavior: 'smooth' });
-            }, 50);
+                target.style.opacity = "1";
+                target.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
         }
     </script>
-
 </body>
 </html>
