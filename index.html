@@ -8,15 +8,9 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        body { background-color: #020617; color: #fff; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
 
-        body {
-            background-color: #020617;
-            color: #fff;
-            font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* LANDING PAGE */
+        /* HALAMAN DEPAN */
         .hero-section {
             height: 100vh;
             display: flex;
@@ -27,76 +21,24 @@
             background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
             position: relative;
         }
-
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            color: #facc15;
-            text-shadow: 0 0 20px rgba(250, 204, 21, 0.5);
-            margin-bottom: 10px;
-        }
-
+        h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(2.5rem, 8vw, 5rem); color: #facc15; text-shadow: 0 0 20px rgba(250, 204, 21, 0.5); margin-bottom: 10px; }
         .footer-nav { position: absolute; bottom: 40px; }
-        .web-link {
-            font-family: 'Orbitron', sans-serif;
-            color: #facc15;
-            text-decoration: none;
-            border: 1px solid #facc15;
-            padding: 12px 30px;
-            border-radius: 30px;
-            transition: 0.3s;
-            background: rgba(0,0,0,0.3);
-        }
+        .web-link { font-family: 'Orbitron', sans-serif; color: #facc15; text-decoration: none; border: 1px solid #facc15; padding: 12px 30px; border-radius: 30px; transition: 0.3s; background: rgba(0,0,0,0.3); cursor: pointer; }
         .web-link:hover { background: #facc15; color: #000; box-shadow: 0 0 20px #facc15; }
 
-        /* SLIDE PAGE */
-        .slide-page {
-            min-height: 100vh;
-            padding: 60px 20px;
-            background-color: #05070a;
-            display: flex;
-            justify-content: center;
-        }
-
+        /* HALAMAN SLIDE */
+        .slide-page { min-height: 100vh; padding: 60px 20px; background-color: #05070a; display: flex; justify-content: center; }
         .slide-content { max-width: 1100px; width: 100%; }
+        .slide-header { font-family: 'Orbitron', sans-serif; color: #facc15; font-size: 2rem; margin-bottom: 40px; border-left: 5px solid #facc15; padding-left: 15px; }
 
-        .slide-header {
-            font-family: 'Orbitron', sans-serif;
-            color: #facc15;
-            font-size: 2rem;
-            margin-bottom: 40px;
-            border-left: 5px solid #facc15;
-            padding-left: 15px;
-        }
-
-        /* GRID UNTUK GAMBAR & TEKS */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.3s;
-        }
-
+        /* KARTU */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: rgba(255, 255, 255, 0.03); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); transition: 0.3s; }
         .card:hover { transform: translateY(-10px); border-color: #facc15; }
-
-        .card-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
+        .card-image { width: 100%; height: 250px; object-fit: cover; display: block; }
         .card-body { padding: 20px; }
         .card-body h3 { font-family: 'Orbitron', sans-serif; color: #facc15; margin-bottom: 10px; }
         .card-body p { color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; }
-
     </style>
 </head>
 <body>
@@ -105,7 +47,7 @@
         <h1>REMY APPEIRON</h1>
         <p style="letter-spacing: 5px; color: #94a3b8;">GALACTIC VOYAGE</p>
         <div class="footer-nav">
-            <a href="#slides" class="web-link">PAGE GALAXY</a>
+            <a href="#slides" class="web-link">HELO LIHAT INI</a>
         </div>
     </section>
 
@@ -115,36 +57,31 @@
             
             <div class="grid-container">
                 <div class="card">
-                    <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80" class="card-image" alt="Nebula">
+                    <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800" class="card-image" alt="Nebula">
                     <div class="card-body">
                         <h3>01. The Nebula</h3>
-                        <p>Awan gas kosmik tempat lahirnya bintang-bintang baru di pusat galaksi Appeiron.</p>
+                        <p>Tempat lahirnya bintang-bintang baru di pusat galaksi Remy Appeiron.</p>
                     </div>
                 </div>
 
                 <div class="card">
-                    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80" class="card-image" alt="Space Tech">
+                    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800" class="card-image" alt="Space Tech">
                     <div class="card-body">
                         <h3>02. Orbital Station</h3>
-                        <p>Pusat kendali satelit untuk memantau pergerakan asteroid dan jalur Warp Drive.</p>
+                        <p>Pusat kendali untuk memantau jalur eksplorasi luar angkasa.</p>
                     </div>
                 </div>
 
                 <div class="card">
-    <div style="width: 100%; height: 250px; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-        <video style="width: 100%; height: 100%; object-fit: cover;" autoplay loop muted playsinline poster="https://res.cloudinary.com/ahmadawais/image/upload/v1585646197/BlackHole/blackhole-poster.jpg">
-            <source src="https://res.cloudinary.com/ahmadawais/video/upload/v1585646199/BlackHole/blackhole.mp4" type="video/mp4">
-            <img src="https://res.cloudinary.com/ahmadawais/image/upload/v1585646197/BlackHole/blackhole-poster.jpg" alt="Black Hole Animation">
-        </video>
-    </div>
-    
-    <div class="card-body">
-        <h3>03. Black Hole</h3>
-        <p>Objek dengan gravitasi sangat kuat, bahkan cahaya tidak bisa lepas dari tarikannya. Inti dari galaksi Remy Appeiron.</p>
-    </div>
-</div>
+                    <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800" class="card-image" alt="Black Hole">
+                    <div class="card-body">
+                        <h3>03. Black Hole</h3>
+                        <p>Inti gravitasi terkuat yang menjadi jangkar bagi seluruh galaksi kita.</p>
+                    </div>
+                </div>
+            </div>
 
-            <p style="text-align: center; margin-top: 50px; font-family: 'Orbitron'; color: #facc15; font-size: 0.8rem;">
+            <p style="text-align: center; margin-top: 80px; font-family: 'Orbitron'; color: #facc15; font-size: 0.8rem; opacity: 0.6;">
                 © 2026 REMY APPEIRON COMMUNITY
             </p>
         </div>
