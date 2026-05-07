@@ -23,12 +23,33 @@
         }
         h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(2.5rem, 8vw, 5rem); color: #facc15; text-shadow: 0 0 20px rgba(250, 204, 21, 0.5); margin-bottom: 10px; }
         .footer-nav { position: absolute; bottom: 40px; }
-        .web-link { font-family: 'Orbitron', sans-serif; color: #facc15; text-decoration: none; border: 1px solid #facc15; padding: 12px 30px; border-radius: 30px; transition: 0.3s; background: rgba(0,0,0,0.3); cursor: pointer; }
+        
+        /* Tombol pemicu */
+        .web-link { 
+            font-family: 'Orbitron', sans-serif; 
+            color: #facc15; 
+            text-decoration: none; 
+            border: 1px solid #facc15; 
+            padding: 12px 30px; 
+            border-radius: 30px; 
+            transition: 0.3s; 
+            background: rgba(0,0,0,0.3); 
+            cursor: pointer;
+            display: inline-block;
+        }
         .web-link:hover { background: #facc15; color: #000; box-shadow: 0 0 20px #facc15; }
 
-        /* HALAMAN SLIDE */
-        .slide-page { min-height: 100vh; padding: 60px 20px; background-color: #05070a; display: flex; justify-content: center; }
-        .slide-content { max-width: 1100px; width: 100%; }
+        /* HALAMAN SLIDE (DISEMBUNYIKAN AWALNYA) */
+        #slides { 
+            display: none; /* Sembunyi secara teknis */
+            opacity: 0;    /* Sembunyi secara visual untuk animasi */
+            min-height: 100vh; 
+            padding: 60px 20px; 
+            background-color: #05070a; 
+            transition: opacity 1s ease;
+        }
+
+        .slide-content { max-width: 1100px; width: 100%; margin: 0 auto; }
         .slide-header { font-family: 'Orbitron', sans-serif; color: #facc15; font-size: 2rem; margin-bottom: 40px; border-left: 5px solid #facc15; padding-left: 15px; }
 
         /* KARTU */
@@ -47,11 +68,11 @@
         <h1>REMY APPEIRON</h1>
         <p style="letter-spacing: 5px; color: #94a3b8;">GALACTIC APPEIRON</p>
         <div class="footer-nav">
-            <a href="#slides" class="web-link">HELO LIHAT INI</a>
+            <a href="javascript:void(0)" onclick="jalankanPage()" class="web-link">HELO LIHAT INI</a>
         </div>
     </section>
 
-    <section id="slides" class="slide-page">
+    <section id="slides">
         <div class="slide-content">
             <h2 class="slide-header">Discovery Gallery</h2>
             
@@ -60,7 +81,7 @@
                     <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800" class="card-image" alt="Nebula">
                     <div class="card-body">
                         <h3>01. The Nebula</h3>
-                        <p>Awan antarbintang raksasa yang terdiri dari debu, gas (terutama hidrogen dan helium), dan plasma di ruang angkasa. Sering dijuluki "tempat pembibitan bintang", nebula merupakan wilayah tempat bintang baru lahir, atau sisa-sisa ledakan bintang yang sekarat (supernova). Nebula memiliki berbagai warna dan bentuk yang menakjubkan. </p>
+                        <p>Awan antarbintang raksasa yang terdiri dari debu, gas (terutama hidrogen dan helium), dan plasma di ruang angkasa. Sering dijuluki "tempat pembibitan bintang".</p>
                     </div>
                 </div>
 
@@ -68,15 +89,15 @@
                     <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800" class="card-image" alt="Space Tech">
                     <div class="card-body">
                         <h3>02. Orbital Station</h3>
-                        <p>ISS (International Space Station): Proyek multinasional (NASA, Roscosmos, JAXA, CSA, ESA) yang mengorbit Bumi pada ketinggian sekitar 360-400 km. ISS dihuni secara terus-menerus sejak Oktober 2000.</p>
+                        <p>ISS (International Space Station): Proyek multinasional yang mengorbit Bumi. ISS dihuni secara terus-menerus sejak Oktober 2000 untuk riset sains.</p>
                     </div>
                 </div>
 
                 <div class="card">
-                    <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800" class="card-image" alt="Black Hole">
+                    <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800" class="card-image" alt="Mars">
                     <div class="card-body">
                         <h3>03. Mars</h3>
-                        <p>Planet Keempat dari Matahari, Sering dijuluki "Planet Merah" karena besi oksida (karat) di permukaannya.</p>
+                        <p>Planet Keempat dari Matahari, Sering dijuluki "Planet Merah" karena besi oksida (karat) di permukaannya yang sangat ikonik.</p>
                     </div>
                 </div>
             </div>
@@ -86,6 +107,22 @@
             </p>
         </div>
     </section>
+
+    <script>
+        function jalankanPage() {
+            var target = document.getElementById("slides");
+            
+            // Munculkan secara teknis (display block agar bisa discroll)
+            target.style.display = "block";
+            
+            // Berikan sedikit delay agar animasi transisi opacity terlihat
+            setTimeout(function() {
+                target.style.opacity = "1";
+                // Scroll halus ke arah gallery
+                target.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+    </script>
 
 </body>
 </html>
