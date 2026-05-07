@@ -3,14 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remy Appeiron - Galactic</title>
+    <title>REMY APPEIRON | Galactic Voyage</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
+        /* RESET & BASE STYLES */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { background-color: #020617; color: #fff; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+        body { 
+            background-color: #020617; 
+            color: #fff; 
+            font-family: 'Montserrat', sans-serif; 
+            overflow-x: hidden; 
+        }
 
-        /* --- BAGIAN 1: ANIMASI GALAXY (HERO) --- */
+        /* HERO SECTION */
         .hero-section {
             height: 100vh;
             display: flex;
@@ -19,48 +25,28 @@
             align-items: center;
             text-align: center;
             position: relative;
-            background: #000;
             overflow: hidden;
         }
 
-        /* Background Bintang Bergerak (Pure CSS Animation) */
-        .stars-background {
+        /* Canvas untuk Animasi Shader Matthias Hurrle */
+        #canvas-shader {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 1;
-            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
         }
 
-        .star {
+        /* Overlay gelap agar teks lebih mudah dibaca */
+        .hero-overlay {
             position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: move-stars linear infinite;
-        }
-
-        @keyframes move-stars {
-            from { transform: translateY(0); }
-            to { transform: translateY(-100vh); }
-        }
-
-        /* Efek Glow Galaksi di Tengah */
-        .galaxy-glow {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(250, 204, 21, 0.2) 0%, transparent 70%);
-            filter: blur(50px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(2, 6, 23, 0.2) 0%, rgba(2, 6, 23, 0.7) 100%);
             z-index: 2;
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.5); opacity: 0.6; }
         }
 
         .hero-content {
@@ -85,9 +71,10 @@
             text-transform: uppercase;
         }
 
+        /* TOMBOL NAVIGASI */
         .footer-nav {
             position: absolute;
-            bottom: 50px;
+            bottom: 60px;
             z-index: 10;
         }
 
@@ -95,44 +82,80 @@
             font-family: 'Orbitron', sans-serif; 
             color: #facc15; 
             text-decoration: none; 
-            border: 1px solid #facc15; 
-            padding: 12px 35px; 
-            border-radius: 30px; 
+            border: 2px solid #facc15; 
+            padding: 15px 40px; 
+            border-radius: 40px; 
             transition: 0.3s; 
-            background: rgba(0,0,0,0.5); 
+            background: rgba(0,0,0,0.6); 
             cursor: pointer;
             letter-spacing: 2px;
+            display: inline-block;
         }
 
-        .web-link:hover { background: #facc15; color: #000; box-shadow: 0 0 25px #facc15; }
+        .web-link:hover { 
+            background: #facc15; 
+            color: #020617; 
+            box-shadow: 0 0 30px #facc15; 
+            transform: scale(1.05);
+        }
 
-        /* --- BAGIAN 2: SLIDE PAGE (GALERI) --- */
-        #slides { 
+        /* DISCOVERY PAGE (TAMPIL SAAT DIKLIK) */
+        #discovery-page { 
             display: none; 
             opacity: 0;
             min-height: 100vh; 
-            padding: 80px 20px; 
+            padding: 100px 20px; 
             background-color: #05070a; 
-            transition: opacity 1s ease;
+            transition: opacity 1s ease-in-out;
         }
 
-        .slide-content { max-width: 1100px; width: 100%; margin: 0 auto; }
-        .slide-header { font-family: 'Orbitron', sans-serif; color: #facc15; font-size: 2rem; margin-bottom: 40px; border-left: 5px solid #facc15; padding-left: 15px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        .section-header { 
+            font-family: 'Orbitron', sans-serif; 
+            color: #facc15; 
+            font-size: 2.5rem; 
+            margin-bottom: 50px; 
+            border-left: 8px solid #facc15; 
+            padding-left: 20px; 
+        }
 
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .card { background: rgba(255, 255, 255, 0.03); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); transition: 0.3s; }
+        .grid-gallery { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 30px; 
+        }
+
+        .card { 
+            background: rgba(255, 255, 255, 0.03); 
+            border-radius: 25px; 
+            overflow: hidden; 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            transition: 0.3s; 
+        }
+
         .card:hover { transform: translateY(-10px); border-color: #facc15; }
         .card-image { width: 100%; height: 250px; object-fit: cover; }
-        .card-body { padding: 20px; }
-        .card-body h3 { font-family: 'Orbitron', sans-serif; color: #facc15; margin-bottom: 10px; }
-        .card-body p { color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; }
+        .card-body { padding: 25px; }
+        .card-body h3 { font-family: 'Orbitron', sans-serif; color: #facc15; margin-bottom: 15px; }
+        .card-body p { color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 100px;
+            font-family: 'Orbitron';
+            color: #facc15;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            letter-spacing: 2px;
+        }
     </style>
 </head>
 <body>
 
     <section class="hero-section">
-        <div class="stars-background" id="star-container"></div>
-        <div class="galaxy-glow"></div>
+        <canvas id="canvas-shader"></canvas>
+        <div class="hero-overlay"></div>
 
         <div class="hero-content">
             <h1>REMY APPEIRON</h1>
@@ -140,65 +163,121 @@
         </div>
 
         <div class="footer-nav">
-            <a onclick="jalankanPage()" class="web-link">HELO LIHAT INI</a>
+            <a onclick="showPage()" class="web-link">HELO LIHAT INI</a>
         </div>
     </section>
 
-    <section id="slides">
-        <div class="slide-content">
-            <h2 class="slide-header">Discovery Gallery</h2>
-            <div class="grid-container">
+    <section id="discovery-page">
+        <div class="container">
+            <h2 class="section-header">Discovery Gallery</h2>
+            
+            <div class="grid-gallery">
                 <div class="card">
-                    <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800" class="card-image" alt="Nebula">
+                    <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800" class="card-image">
                     <div class="card-body">
                         <h3>01. The Nebula</h3>
-                        <p>Awan antarbintang raksasa yang terdiri dari debu dan gas. Sering dijuluki "tempat pembibitan bintang".</p>
+                        <p>Awan antarbintang raksasa tempat lahirnya bintang baru di pusat galaksi Remy Appeiron.</p>
                     </div>
                 </div>
+
                 <div class="card">
-                    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800" class="card-image" alt="Space Tech">
+                    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800" class="card-image">
                     <div class="card-body">
                         <h3>02. Orbital Station</h3>
-                        <p>International Space Station (ISS): Pusat riset yang mengorbit Bumi untuk memantau galaksi.</p>
+                        <p>Pusat kendali satelit untuk memantau pergerakan asteroid dan jalur Warp Drive.</p>
                     </div>
                 </div>
+
                 <div class="card">
-                    <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800" class="card-image" alt="Mars">
+                    <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800" class="card-image">
                     <div class="card-body">
-                        <h3>03. Mars</h3>
-                        <p>Planet Keempat dari Matahari yang dikenal sebagai Planet Merah karena besi oksida di permukaannya.</p>
+                        <h3>03. Black Hole</h3>
+                        <p>Objek dengan gravitasi sangat kuat, jankar pusat galaksi Appeiron.</p>
                     </div>
                 </div>
             </div>
-            <p style="text-align: center; margin-top: 80px; font-family: 'Orbitron'; color: #facc15; font-size: 0.8rem; opacity: 0.6;">
-                © 2026 REMY APPEIRON COMMUNITY
-            </p>
+
+            <div class="footer-text">
+                <p>jossensie.github.io/Remy | info@deepspace.com</p>
+                <p style="margin-top: 15px;">© 2026 REMY APPEIRON COMMUNITY</p>
+            </div>
         </div>
     </section>
 
-    <script>
-        // Membuat ribuan bintang secara otomatis
-        const container = document.getElementById('star-container');
-        for (let i = 0; i < 150; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            const size = Math.random() * 3 + 'px';
-            star.style.width = size;
-            star.style.height = size;
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDuration = (Math.random() * 5 + 3) + 's';
-            star.style.opacity = Math.random();
-            container.appendChild(star);
-        }
+    <script id="vs" type="x-shader/x-vertex">
+        #version 300 es
+        in vec4 position;
+        void main() { gl_Position = position; }
+    </script>
 
-        function jalankanPage() {
-            var target = document.getElementById("slides");
-            target.style.display = "block";
-            setTimeout(function() {
-                target.style.opacity = "1";
-                target.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
+    <script id="fs" type="x-shader/x-fragment">
+        #version 300 es
+        precision highp float;
+        out vec4 fragColor;
+        uniform float time;
+        uniform vec2 resolution;
+
+        void main() {
+            vec2 uv = (gl_FragCoord.xy - .5 * resolution.xy) / min(resolution.y, resolution.x);
+            vec3 col = vec3(0);
+            for(float i=0.; i<1.; i+=1./64.) {
+                float depth = fract(i + time * .1);
+                float scale = mix(20., .1, depth);
+                float fade = depth * smoothstep(1., .9, depth);
+                col += pow(abs(1.-fade), 20.) * vec3(1) * smoothstep(.01, .0, length(fract(uv * scale + .5) - .5));
+            }
+            fragColor = vec4(col, 1.0);
+        }
+    </script>
+
+    <script>
+        // --- ANIMASI SHADER STAR TREK ---
+        const canvas = document.getElementById('canvas-shader');
+        const gl = canvas.getContext('webgl2');
+        const program = gl.createProgram();
+
+        const createShader = (type, source) => {
+            const shader = gl.createShader(type);
+            gl.shaderSource(shader, source);
+            gl.compileShader(shader);
+            gl.attachShader(program, shader);
+        };
+
+        createShader(gl.VERTEX_SHADER, document.getElementById('vs').text);
+        createShader(gl.FRAGMENT_SHADER, document.getElementById('fs').text);
+        gl.linkProgram(program);
+        gl.useProgram(program);
+
+        const buffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+
+        const pos = gl.getAttribLocation(program, 'position');
+        gl.enableVertexAttribArray(pos);
+        gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+
+        const timeLoc = gl.getUniformLocation(program, 'time');
+        const resLoc = gl.getUniformLocation(program, 'resolution');
+
+        function render(now) {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+            gl.uniform1f(timeLoc, now * 0.001);
+            gl.uniform2f(resLoc, canvas.width, canvas.height);
+            gl.drawArrays(gl.TRIANGLES, 0, 6);
+            requestAnimationFrame(render);
+        }
+        requestAnimationFrame(render);
+
+        // --- FUNGSI TAMPILKAN HALAMAN ---
+        function showPage() {
+            const page = document.getElementById('discovery-page');
+            page.style.display = 'block';
+            setTimeout(() => {
+                page.style.opacity = '1';
+                page.scrollIntoView({ behavior: 'smooth' });
+            }, 50);
         }
     </script>
 </body>
