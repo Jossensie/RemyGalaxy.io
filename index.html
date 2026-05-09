@@ -1,575 +1,259 @@
 <!DOCTYPE html>
-
 <html lang="id">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Remy Appeiron - Galactic</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-
     <style>
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
-
         body { background-color: #020617; color: #fff; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
 
-
-
         /* --- HERO SECTION --- */
-
         .hero-section {
-
             height: 100vh;
-
             display: flex;
-
             flex-direction: column;
-
             justify-content: center;
-
             align-items: center;
-
             text-align: center;
-
             position: relative;
-
             background: #000;
-
             overflow: hidden;
-
         }
-
-
 
         .stars-background {
-
             position: absolute;
-
             top: 0;
-
             left: 0;
-
             width: 100%;
-
             height: 100%;
-
             z-index: 1;
-
-            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
-
+            background: radial-gradient(circle at center, #0c1421 0%, #05070a 100%);
         }
-
-
 
         .star {
-
             position: absolute;
-
             background: white;
-
             border-radius: 50%;
-
             opacity: 0.5;
-
             animation: move-stars linear infinite;
-
         }
-
-
 
         @keyframes move-stars {
-
             from { transform: translateY(0); }
-
             to { transform: translateY(-100vh); }
-
         }
-
-
 
         .galaxy-glow {
-
             position: absolute;
-
-            width: 300px;
-
-            height: 300px;
-
-            background: radial-gradient(circle, rgba(250, 204, 21, 0.2) 0%, transparent 70%);
-
-            filter: blur(50px);
-
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            filter: blur(80px);
             z-index: 2;
-
-            animation: pulse 4s ease-in-out infinite;
-
+            animation: pulse 6s ease-in-out infinite;
         }
-
-
 
         @keyframes pulse {
-
             0%, 100% { transform: scale(1); opacity: 0.3; }
-
-            50% { transform: scale(1.5); opacity: 0.6; }
-
+            50% { transform: scale(1.3); opacity: 0.5; }
         }
 
-
-
-        .hero-content {
-
-            position: relative;
-
-            z-index: 10;
-
-        }
-
-
+        .hero-content { position: relative; z-index: 10; }
 
         h1 {
-
             font-family: 'Orbitron', sans-serif;
-
             font-size: clamp(2.5rem, 10vw, 5rem);
-
             color: #facc15;
-
-            text-shadow: 0 0 30px rgba(250, 204, 21, 0.7);
-
+            text-shadow: 0 0 30px rgba(250, 204, 21, 0.5);
             letter-spacing: 10px;
-
             margin-bottom: 10px;
-
         }
-
-
 
         .subtitle {
-
             font-family: 'Orbitron', sans-serif;
-
             font-size: 1.2rem;
-
             color: #cbd5e1;
-
             letter-spacing: 5px;
-
             text-transform: uppercase;
-
         }
 
-
-
-        .footer-nav {
-
-            position: absolute;
-
-            bottom: 50px;
-
-            z-index: 10;
-
-        }
-
-
+        .footer-nav { position: absolute; bottom: 50px; z-index: 10; }
 
         .web-link { 
-
             font-family: 'Orbitron', sans-serif; 
-
             color: #facc15; 
-
             text-decoration: none; 
-
             border: 1px solid #facc15; 
-
-            padding: 12px 35px; 
-
-            border-radius: 30px; 
-
-            transition: 0.3s; 
-
-            background: rgba(0,0,0,0.5); 
-
+            padding: 15px 45px; 
+            border-radius: 2px; 
+            transition: 0.4s; 
+            background: rgba(0,0,0,0.6); 
             cursor: pointer;
-
-            letter-spacing: 2px;
-
+            letter-spacing: 3px;
+            font-size: 0.9rem;
         }
 
-
-
-        .web-link:hover { background: #facc15; color: #000; box-shadow: 0 0 25px #facc15; }
-
-
+        .web-link:hover { 
+            background: #facc15; 
+            color: #000; 
+            box-shadow: 0 0 30px rgba(250, 204, 21, 0.6); 
+        }
 
         /* --- SLIDE PAGE --- */
-
         #slides { 
-
             display: none; 
-
             opacity: 0;
-
             min-height: 100vh; 
-
-            padding: 80px 20px; 
-
+            padding: 100px 20px; 
             background-color: #05070a; 
-
-            transition: opacity 1s ease;
-
+            transition: opacity 1.5s ease;
         }
-
-
 
         .slide-content { max-width: 1100px; width: 100%; margin: 0 auto; }
-
         .slide-header { font-family: 'Orbitron', sans-serif; color: #facc15; font-size: 2rem; margin-bottom: 40px; border-left: 5px solid #facc15; padding-left: 15px; }
 
-
-
         .grid-container { 
-
             display: grid; 
-
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-
             gap: 25px; 
-
         }
-
-
 
         .card { 
-
-            background: rgba(255, 255, 255, 0.03); 
-
-            border-radius: 20px; 
-
+            background: rgba(255, 255, 255, 0.02); 
+            border-radius: 10px; 
             overflow: hidden; 
-
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-
-            transition: 0.3s; 
-
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            transition: 0.4s; 
             display: flex;
-
             flex-direction: column;
-
         }
 
-
-
-        .card:hover { transform: translateY(-10px); border-color: #facc15; }
-
-        .card-image { width: 100%; height: 250px; object-fit: cover; }
-
-        .card-body { padding: 20px; }
-
-        .card-body h3 { font-family: 'Orbitron', sans-serif; color: #facc15; margin-bottom: 10px; }
-
-        .card-body p { color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; }
-
+        .card:hover { transform: translateY(-10px); border-color: #facc15; background: rgba(255, 255, 255, 0.05); }
+        .card-image { width: 100%; height: 250px; object-fit: cover; filter: grayscale(30%); transition: 0.5s; }
+        .card:hover .card-image { filter: grayscale(0%); }
+        .card-body { padding: 25px; }
+        .card-body h3 { font-family: 'Orbitron', sans-serif; color: #facc15; margin-bottom: 12px; font-size: 1.1rem; }
+        .card-body p { color: #94a3b8; font-size: 0.85rem; line-height: 1.6; }
     </style>
-
 </head>
-
 <body>
 
-
-
     <audio id="spaceMusic" loop>
-
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
-
+        <source src="https://ia801509.us.archive.org/24/items/interstellar-main-theme/Interstellar%20-%20Main%20Theme.mp3" type="audio/mpeg">
     </audio>
 
-
-
     <section class="hero-section">
-
         <div class="stars-background" id="star-container"></div>
-
         <div class="galaxy-glow"></div>
 
-
-
         <div class="hero-content">
-
             <h1>REMY APPEIRON</h1>
-
             <p class="subtitle">GALACTIC APPEIRON</p>
-
         </div>
-
-
 
         <div class="footer-nav">
-
             <a onclick="jalankanPage()" class="web-link">WSUP HOMIE..</a>
-
         </div>
-
     </section>
 
-
-
     <section id="slides">
-
         <div class="slide-content">
-
             <h2 class="slide-header">Discovery Gallery</h2>
-
             <div class="grid-container">
-
                 
-
                 <div class="card">
-
                     <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800" class="card-image" alt="Nebula">
-
                     <div class="card-body">
-
                         <h3>01. THE NEBULA</h3>
-
                         <p>Awan antarbintang raksasa yang terdiri dari debu dan gas. Sering dijuluki "tempat pembibitan bintang".</p>
-
                     </div>
-
                 </div>
 
-
-
                 <div class="card">
-
-                    <img src="https://images.unsplash.com/photo-1543722530-d2c3201371e7?q=80&w=1000" class="card-image" alt="Black Hole">
-
+                    <img src="https://images.unsplash.com/photo-1543722530-d2c3201371e7?q=80&w=1000" class="card-image" alt="Galaxy">
                     <div class="card-body">
-
                         <h3>02. GALAXY BIMASAKTI</h3>
-
                         <p>Galaksi terbentuk dari awan gas dan debu yang runtuh akibat gravitasi, membentuk bintang-bintang di dalamnya.</p>
-
                     </div>
-
                 </div>
 
-
-
                 <div class="card">
-
-                    <img src="https://images.unsplash.com/photo-1529788295308-1eace6f67388?w=800" class="card-image" alt="The Sun">
-
+                    <img src="https://images.unsplash.com/photo-1529788295308-1eace6f67388?w=800" class="card-image" alt="Sun">
                     <div class="card-body">
-
                         <h3>03. THE SUN</h3>
-
                         <p>Pusat gravitasi dari sistem tata surya kita. Bintang raksasa ini adalah sumber energi utama bagi kehidupan.</p>
-
                     </div>
-
                 </div>
-
                 
-
                 <div class="card">
-
                     <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800" class="card-image" alt="Space Tech">
-
                     <div class="card-body">
-
                         <h3>04. ORBITAL STATION</h3>
-
-                        <p>ISS: Pusat riset yang mengorbit Bumi untuk memantau galaksi secara real-time.</p>
-
+                        <p>Pusat riset yang mengorbit Bumi untuk memantau galaksi secara real-time dari kegelapan ruang hampa.</p>
                     </div>
-
                 </div>
-
                 
-
                 <div class="card">
-
                     <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800" class="card-image" alt="Mars">
-
                     <div class="card-body">
-
                         <h3>05. MARS</h3>
-
-                        <p>Dikenal sebagai Planet Merah karena besi oksida di permukaannya. Target kolonisasi masa depan.</p>
-
+                        <p>Dikenal sebagai Planet Merah karena besi oksida di permukaannya. Target kolonisasi masa depan manusia.</p>
                     </div>
-
                 </div>
 
-
-
                 <div class="card">
-
                     <img src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=800" class="card-image" alt="Earth">
-
                     <div class="card-body">
-
                         <h3>06. EARTH</h3>
-
-                        <p>Rumah kita. Satu-satunya planet yang diketahui memiliki air cair dan kehidupan.</p>
-
+                        <p>Satu-satunya titik biru pucat yang diketahui memiliki air cair dan kehidupan di luasnya semesta.</p>
                     </div>
-
                 </div>
-
-
-
-                <div class="card">
-
-                    <img src="https://images.unsplash.com/photo-1630839437035-dac17da580d0?w=800" class="card-image" alt="Jupiter">
-
-                    <div class="card-body">
-
-                        <h3>07. JUPITER</h3>
-
-                        <p>Raksasa Gas. Planet terbesar dengan badai raksasa legendaris, Great Red Spot.</p>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="card">
-
-                    <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=800" class="card-image" alt="Saturn">
-
-                    <div class="card-body">
-
-                        <h3>08. SATURN</h3>
-
-                        <p>Terkenal dengan sistem cincin esnya yang megah dan sangat luas.</p>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="card">
-
-                    <img src="https://images.unsplash.com/photo-1614732484003-ef9881555dc3?w=800" class="card-image" alt="Uranus">
-
-                    <div class="card-body">
-
-                        <h3>09. URANUS</h3>
-
-                        <p>Raksasa Es biru pucat unik yang berotasi dengan kemiringan yang sangat ekstrem.</p>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="card">
-
-                    <img src="https://images.unsplash.com/photo-1614313913007-2b4ae8ce32d6?w=800" class="card-image" alt="Neptune">
-
-                    <div class="card-body">
-
-                        <h3>10. NEPTUNE</h3>
-
-                        <p>Planet terjauh yang sangat dingin dengan angin kencang melampaui kecepatan suara.</p>
-
-                    </div>
-
-                </div>
-
-                
-
             </div>
-
-            <p style="text-align: center; margin-top: 80px; font-family: 'Orbitron'; color: #facc15; font-size: 0.8rem; opacity: 0.6;">
-
+            <p style="text-align: center; margin-top: 80px; font-family: 'Orbitron'; color: #facc15; font-size: 0.7rem; opacity: 0.4; letter-spacing: 2px;">
                 © 2026 APPEIRON COMMUNITY
-
             </p>
-
         </div>
-
     </section>
 
 
 
     <script>
-
-        // BINTANG OTOMATIS
-
+        // GENERASI BINTANG OTOMATIS
         const container = document.getElementById('star-container');
-
-        for (let i = 0; i < 150; i++) {
-
+        for (let i = 0; i < 200; i++) {
             const star = document.createElement('div');
-
             star.className = 'star';
-
-            const size = Math.random() * 3 + 'px';
-
+            const size = Math.random() * 2 + 1 + 'px';
             star.style.width = size;
-
             star.style.height = size;
-
             star.style.left = Math.random() * 100 + '%';
-
             star.style.top = Math.random() * 100 + '%';
-
-            star.style.animationDuration = (Math.random() * 5 + 3) + 's';
-
-            star.style.opacity = Math.random();
-
+            star.style.animationDuration = (Math.random() * 10 + 5) + 's';
+            star.style.opacity = Math.random() * 0.8;
             container.appendChild(star);
-
         }
 
-
-
-        // FUNGSI KLIK TOMBOL
-
+        // FUNGSI INISIASI HALAMAN
         function jalankanPage() {
-
-            // Putar Musik
-
+            // Putar Musik Interstellar
             const audio = document.getElementById("spaceMusic");
+            audio.volume = 0.5;
+            audio.play().catch(error => {
+                console.log("Autoplay dicegah browser, tapi suara akan aktif setelah interaksi.");
+            });
 
-            audio.volume = 0.4;
-
-            audio.play();
-
-
-
-            // Munculkan Halaman Slide
-
-            var target = document.getElementById("slides");
-
+            // Tampilkan Gallery dengan Animasi Fade In
+            const target = document.getElementById("slides");
             target.style.display = "block";
-
-            setTimeout(function() {
-
+            
+            setTimeout(() => {
                 target.style.opacity = "1";
-
                 target.scrollIntoView({ behavior: 'smooth' });
-
             }, 100);
-
         }
-
     </script>
-
 </body>
-
 </html>
