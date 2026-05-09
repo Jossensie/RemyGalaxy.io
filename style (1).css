@@ -1,0 +1,84 @@
+/* --- KUNCI TOTAL (ANTI-GESER) --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* Mematikan semua interaksi sentuh bawaan browser (scroll/zoom) */
+  touch-action: none; 
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  height: 100dvh; /* Tinggi dinamis untuk HP */
+  overflow: hidden; /* Sembunyikan scrollbar */
+  background: #000;
+  /* Kunci posisi di titik nol */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* --- CANVAS (GALAXY) FULL SCREEN --- */
+canvas {
+  position: fixed; /* Ubah ke fixed agar terkunci di layar */
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* --- TOMBOL BINTANG KUNING GLOWING --- */
+#controls {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 9999;
+}
+
+.controls {
+  background: none !important;
+  border: none !important;
+}
+
+#btnToggleResolution {
+  all: unset;
+  cursor: pointer;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  /* Efek Cahaya Kuning */
+  filter: drop-shadow(0 0 8px rgba(255, 223, 0, 0.9));
+  transition: transform 0.2s;
+}
+
+#btnToggleResolution::after {
+  content: 'NON';
+  font-size: 1.1rem;
+  /* Membuat isi bintang jadi kuning glow */
+  filter: brightness(1.2) sepia(1) hue-rotate(10deg) saturate(15);
+}
+
+#btnToggleResolution:checked::after {
+  content: 'HD';
+  font-size: 1.1rem;
+  filter: brightness(1.2) sepia(1) hue-rotate(10deg) saturate(15);
+}
+
+/* --- BERSIHKAN ELEMEN SAMPAH --- */
+.editor, #error, .overlay, #indicator, #btnToggleView, #btnReset {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+}
