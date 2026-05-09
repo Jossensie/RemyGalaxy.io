@@ -131,6 +131,7 @@
             transition: 0.3s; 
             display: flex;
             flex-direction: column;
+            cursor: pointer;
         }
 
         .card:hover { transform: translateY(-10px); border-color: #facc15; }
@@ -138,6 +139,40 @@
         .card-body { padding: 20px; }
         .card-body h3 { font-family: 'Orbitron', sans-serif; color: #facc15; margin-bottom: 10px; }
         .card-body p { color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; }
+
+        /* --- STAR TREK OVERLAY --- */
+        #starTrekOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: #000;
+        }
+
+        #starTrekCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .exit-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            z-index: 10000;
+            font-family: 'Orbitron', sans-serif;
+            color: #facc15;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid #facc15;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .exit-btn:hover { background: #facc15; color: #000; }
     </style>
 </head>
 <body>
@@ -145,6 +180,11 @@
     <audio id="spaceMusic" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
     </audio>
+
+    <div id="starTrekOverlay">
+        <button class="exit-btn" onclick="closeStarTrek()">EXIT HYPERSPACE</button>
+        <canvas id="starTrekCanvas"></canvas>
+    </div>
 
     <section class="hero-section">
         <div class="stars-background" id="star-container"></div>
@@ -169,15 +209,15 @@
                     <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800" class="card-image" alt="Nebula">
                     <div class="card-body">
                         <h3>01. THE NEBULA</h3>
-                        <p>Awan antarbintang raksasa yang terdiri dari debu dan gas. Sering dijuluki "tempat pembibitan bintang".</p>
+                        <p>Awan antarbintang raksasa yang terdiri dari debu dan gas.</p>
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card" onclick="openStarTrek()">
                     <img src="https://images.unsplash.com/photo-1543722530-d2c3201371e7?q=80&w=1000" class="card-image" alt="Black Hole">
                     <div class="card-body">
                         <h3>02. GALAXY BIMASAKTI</h3>
-                        <p>Galaksi terbentuk dari awan gas dan debu yang runtuh akibat gravitasi, membentuk bintang-bintang di dalamnya.</p>
+                        <p>Klik untuk masuk ke mode Hyper-Travel melalui Galaksi Bimasakti.</p>
                     </div>
                 </div>
 
@@ -185,7 +225,7 @@
                     <img src="https://images.unsplash.com/photo-1529788295308-1eace6f67388?w=800" class="card-image" alt="The Sun">
                     <div class="card-body">
                         <h3>03. THE SUN</h3>
-                        <p>Pusat gravitasi dari sistem tata surya kita. Bintang raksasa ini adalah sumber energi utama bagi kehidupan.</p>
+                        <p>Pusat gravitasi dari sistem tata surya kita. Bintang raksasa ini adalah sumber energi utama.</p>
                     </div>
                 </div>
                 
@@ -201,7 +241,7 @@
                     <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800" class="card-image" alt="Mars">
                     <div class="card-body">
                         <h3>05. MARS</h3>
-                        <p>Dikenal sebagai Planet Merah karena besi oksida di permukaannya. Target kolonisasi masa depan.</p>
+                        <p>Dikenal sebagai Planet Merah karena besi oksida di permukaannya.</p>
                     </div>
                 </div>
 
@@ -212,38 +252,6 @@
                         <p>Rumah kita. Satu-satunya planet yang diketahui memiliki air cair dan kehidupan.</p>
                     </div>
                 </div>
-
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1630839437035-dac17da580d0?w=800" class="card-image" alt="Jupiter">
-                    <div class="card-body">
-                        <h3>07. JUPITER</h3>
-                        <p>Raksasa Gas. Planet terbesar dengan badai raksasa legendaris, Great Red Spot.</p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=800" class="card-image" alt="Saturn">
-                    <div class="card-body">
-                        <h3>08. SATURN</h3>
-                        <p>Terkenal dengan sistem cincin esnya yang megah dan sangat luas.</p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1614732484003-ef9881555dc3?w=800" class="card-image" alt="Uranus">
-                    <div class="card-body">
-                        <h3>09. URANUS</h3>
-                        <p>Raksasa Es biru pucat unik yang berotasi dengan kemiringan yang sangat ekstrem.</p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1614313913007-2b4ae8ce32d6?w=800" class="card-image" alt="Neptune">
-                    <div class="card-body">
-                        <h3>10. NEPTUNE</h3>
-                        <p>Planet terjauh yang sangat dingin dengan angin kencang melampaui kecepatan suara.</p>
-                    </div>
-                </div>
                 
             </div>
             <p style="text-align: center; margin-top: 80px; font-family: 'Orbitron'; color: #facc15; font-size: 0.8rem; opacity: 0.6;">
@@ -252,36 +260,103 @@
         </div>
     </section>
 
+    <script type="x-shader/x-fragment" id="fs">#version 300 es
+    precision highp float;
+    out vec4 O;
+    uniform vec2 resolution;
+    uniform float time;
+    #define FC gl_FragCoord.xy
+    #define T time
+    #define R resolution
+    #define MN min(R.x,R.y)
+    float rnd(vec2 p) { p=fract(p*vec2(12.9898,78.233)); p+=dot(p,p+34.56); return fract(p.x*p.y); }
+    float noise(in vec2 p) { vec2 i=floor(p), f=fract(p), u=f*f*(3.-2.*f); float a=rnd(i), b=rnd(i+vec2(1,0)), c=rnd(i+vec2(0,1)), d=rnd(i+1.); return mix(mix(a,b,u.x),mix(c,d,u.x),u.y); }
+    float fbm(vec2 p) { float t=.0, a=1.; mat2 m=mat2(1.,-.5,.2,1.2); for (int i=0; i<5; i++) { t+=a*noise(p); p*=2.*m; a*=.5; } return t; }
+    void main() {
+        vec2 uv=(FC-.5*R)/MN, st=uv*vec2(2,1);
+        vec3 col=vec3(0);
+        float bg=fbm(st+T*.1);
+        uv*=2.;
+        for (float i=1.; i<12.; i++) {
+            uv+=.1*cos(vec2(i*i+.1*T, .8*i+i*T+5.1*uv.x));
+            vec2 p=uv;
+            float d=length(p);
+            col+=.00125/d*abs(cos(st.x*i*vec3(1,2,3)));
+        }
+        col=mix(col, vec3(bg*.25, bg*.137, bg*.05), .5);
+        O=vec4(col, 1);
+    }
+    </script>
+
     <script>
-        // BINTANG OTOMATIS
+        // BINTANG HERO
         const container = document.getElementById('star-container');
         for (let i = 0; i < 150; i++) {
             const star = document.createElement('div');
             star.className = 'star';
             const size = Math.random() * 3 + 'px';
-            star.style.width = size;
-            star.style.height = size;
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
+            star.style.width = size; star.style.height = size;
+            star.style.left = Math.random() * 100 + '%'; star.style.top = Math.random() * 100 + '%';
             star.style.animationDuration = (Math.random() * 5 + 3) + 's';
-            star.style.opacity = Math.random();
             container.appendChild(star);
         }
 
-        // FUNGSI KLIK TOMBOL
         function jalankanPage() {
-            // Putar Musik
             const audio = document.getElementById("spaceMusic");
-            audio.volume = 0.4;
-            audio.play();
-
-            // Munculkan Halaman Slide
+            audio.volume = 0.4; audio.play();
             var target = document.getElementById("slides");
             target.style.display = "block";
-            setTimeout(function() {
-                target.style.opacity = "1";
-                target.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
+            setTimeout(() => { target.style.opacity = "1"; target.scrollIntoView({ behavior: 'smooth' }); }, 100);
+        }
+
+        // --- LOGIKA STAR TREK ---
+        let gl, program, tLoc, rLoc, reqAnim;
+
+        function openStarTrek() {
+            document.getElementById('starTrekOverlay').style.display = 'block';
+            initStarTrek();
+        }
+
+        function closeStarTrek() {
+            document.getElementById('starTrekOverlay').style.display = 'none';
+            cancelAnimationFrame(reqAnim);
+        }
+
+        function initStarTrek() {
+            const canvas = document.getElementById('starTrekCanvas');
+            gl = canvas.getContext('webgl2');
+            if (!gl) return;
+
+            const vs = `#version 300 es
+            in vec2 p; void main() { gl_Position = vec4(p, 0.0, 1.0); }`;
+            const fs = document.getElementById('fs').text;
+
+            const createS = (t, s) => { const sh = gl.createShader(t); gl.shaderSource(sh, s); gl.compileShader(sh); return sh; };
+            program = gl.createProgram();
+            gl.attachShader(program, createS(gl.VERTEX_SHADER, vs));
+            gl.attachShader(program, createS(gl.FRAGMENT_SHADER, fs));
+            gl.linkProgram(program);
+            gl.useProgram(program);
+
+            const buf = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]), gl.STATIC_DRAW);
+            const pL = gl.getAttribLocation(program, "p");
+            gl.enableVertexAttribArray(pL);
+            gl.vertexAttribPointer(pL, 2, gl.FLOAT, false, 0, 0);
+
+            tLoc = gl.getUniformLocation(program, "time");
+            rLoc = gl.getUniformLocation(program, "resolution");
+
+            const render = (time) => {
+                canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+                gl.viewport(0, 0, canvas.width, canvas.height);
+                gl.uniform1f(tLoc, time * 0.001);
+                gl.uniform2f(rLoc, canvas.width, canvas.height);
+                gl.drawArrays(gl.TRIANGLES, 0, 6);
+                reqAnim = requestAnimationFrame(render);
+            };
+            reqAnim = requestAnimationFrame(render);
         }
     </script>
 </body>
