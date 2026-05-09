@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realistic Galaxy - Interstellar Edition</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* UI Overlay */
+        .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            pointer-events: none;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+            opacity: 0.6;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: 20px;
+            text-transform: uppercase;
+            margin: 0;
+            font-weight: 100;
+        }
+
+        p {
+            font-size: 0.8rem;
+            letter-spacing: 5px;
+            margin-top: 10px;
+            color: #aaa;
+        }
+
+        /* Audio Button Style */
+        .audio-control {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 12px 30px;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: 0.5s;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .audio-control:hover {
+            background: rgba(255, 255, 255, 1);
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay">
+        <h1>GARGANTUA</h1>
+        <p>EVENT HORIZON SIMULATION</p>
+    </div>
+
+    <canvas id="canvas"></canvas>
+    
+    <button class="audio-control" id="playBtn">INITIATE AUDIO CORE</button>
+    
+    <!-- AUDIO INTERSTELLAR -->
+    <audio id="bgMusic" loop>
+        <source src="https://ia801509.us.archive.org/24/items/interstellar-main-theme/Interstellar%20-%20Main%20Theme.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- GALAXY SHADER -->
+    <script type="x-shader/x-fragment" id="fs">#version 300 es
+    precision highp float;
+    out vec4 O;
+    uniform vec2 resolution;
+    uniform float time;
+
+    #define R resolution
+    #define T time
+
+    mat2 rot(float a) {
+        float s=sin(a), c=cos(a);
+        return mat2(c,-s,s,c);
+    }
+
+    float hash(vec2 p) {
+        p = fract(p * vec2(123.34, 456.21));
+        p += dot(p, p + 45.32);
+        return fract(p.x * p.y);
+    }
+
+    void main() {
+        vec2 uv = (gl_FragCoord.xy - .5 * R.xy) / min(R.y, R.x);
+        vec3 col = vec3(0);
+        
+        // Efek rotasi waktu ala film Interstellar (sangat lambat)
+        float slowTime = T * 0.08;
+        uv *= rot(slowTime * 0.5);
+        
+        float d = length(uv);
+        float angle = atan(uv.y, uv.x);
+        
+        // Struktur Spiral Sinematik
+        float spiral = sin(angle * 2.0 - log(d + 0.1) * 6.0 + slowTime);
+        spiral = pow(max(0.0, spiral), 4.0); 
+        
+        // Palet Warna: Gold (Inti), Deep Blue (Lengan), Black (Void)
+        vec3 coreCol = vec3(1.0, 0.8, 0.5); 
+        vec3 armCol = vec3(0.1, 0.3, 0.6);
+        
+        // 1. Singularity / Core Glow
+        float core = 0.03 / (d + 0.015);
+        col += core * coreCol;
+        
+        // 2. Accretion Disk / Spiral Arms
+        float disk = spiral * (0.2 / (d + 0.2));
+        col += disk * mix(armCol, coreCol, 0.3);
+        
+        // 3. Star Dust (Nebula)
+        float noise = hash(uv * 2.0 + T * 0.01);
+        col += pow(noise, 15.0) * 0.1 * armCol;
+        
+        // 4. Distant Stars
+        float stars = pow(hash(uv * 1000.0), 2000.0) * 3.0;
+        col += stars * smoothstep(0.2, 0.8, d);
+
+        // Efek gelap di pinggiran (Vignette)
+        col *= smoothstep(1.2, 0.1, d);
+
+        O = vec4(col, 1.0);
+    }
+    </script>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const gl = canvas.getContext('webgl2');
+        const fsSource = document.getElementById('fs').textContent;
+
+        let program, timeHandle, resHandle;
+
+        function createShader(gl, type, source) {
+            const shader = gl.createShader(type);
+            gl.shaderSource(shader, source);
+            gl.compileShader(shader);
+            if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                console.error(gl.getShaderInfoLog(shader));
+                gl.deleteShader(shader);
+                return null;
+            }
+            return shader;
+        }
+
+        const vsSource = `#version 300 es
+            in vec4 position;
+            void main() { gl_Position = position; }
+        `;
+
+        function init() {
+            const vs = createShader(gl, gl.VERTEX_SHADER, vsSource);
+            const fs = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
+            program = gl.createProgram();
+            gl.attachShader(program, vs);
+            gl.attachShader(program, fs);
+            gl.linkProgram(program);
+            gl.useProgram(program);
+
+            const buffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+
+            const pos = gl.getAttribLocation(program, "position");
+            gl.enableVertexAttribArray(pos);
+            gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+
+            timeHandle = gl.getUniformLocation(program, "time");
+            resHandle = gl.getUniformLocation(program, "resolution");
+
+            resize();
+            window.addEventListener('resize', resize);
+            requestAnimationFrame(render);
+        }
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+        }
+
+        function render(t) {
+            gl.uniform1f(timeHandle, t / 1000);
+            gl.uniform2f(resHandle, canvas.width, canvas.height);
+            gl.drawArrays(gl.TRIANGLES, 0, 6);
+            requestAnimationFrame(render);
+        }
+
+        // Music Logic
+        const music = document.getElementById('bgMusic');
+        const playBtn = document.getElementById('playBtn');
+        let playing = false;
+
+        playBtn.addEventListener('click', () => {
+            if(!playing) {
+                music.play().catch(e => console.log("User must interact first"));
+                playBtn.innerText = "HALT AUDIO CORE";
+            } else {
+                music.pause();
+                playBtn.innerText = "INITIATE AUDIO CORE";
+            }
+            playing = !playing;
+        });
+
+        init();
+    </script>
+</body>
+</html>
